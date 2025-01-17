@@ -3866,7 +3866,7 @@ __metadata:
     "@uniswap/governance": "npm:^1.0.2"
     "@uniswap/liquidity-staker": "npm:^1.0.2"
     "@uniswap/merkle-distributor": "npm:1.0.1"
-    "@uniswap/sdk": GGGGreatOne/uniswap-sdk.git
+    "@uniswap/sdk": "npm:3.0.3"
     "@uniswap/token-lists": "npm:^1.0.0-beta.19"
     "@uniswap/v2-core": "npm:1.0.0"
     "@uniswap/v2-periphery": "npm:^1.1.0-beta.0"
@@ -3955,9 +3955,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uniswap/sdk@GGGGreatOne/uniswap-sdk.git":
+"@uniswap/sdk@npm:3.0.3":
   version: 3.0.3
-  resolution: "@uniswap/sdk@https://github.com/GGGGreatOne/uniswap-sdk.git#commit=0eaf6448c0fcda619e2feb98c544bf69f1b6b9d9"
+  resolution: "@uniswap/sdk@npm:3.0.3"
   dependencies:
     "@uniswap/v2-core": "npm:^1.0.0"
     big.js: "npm:^5.2.2"
@@ -3972,7 +3972,7 @@ __metadata:
     "@ethersproject/networks": ^5.0.0-beta
     "@ethersproject/providers": ^5.0.0-beta
     "@ethersproject/solidity": ^5.0.0-beta
-  checksum: 10c0/e903392ccd5ecfb79a9e879a03d02e0fcb1718bd7f6217b4888bb4f2c32642c15e443eba59f0ae56fd01009fd07f44cff6c4b9e676e5c34be05282ed98658a02
+  checksum: 10c0/7e3aa5eae04cbb62c623904b18af48c8ccf34e0fd471a0f60aa51e6a499d75854c5b311bb01fb9edf8b4908a6db51a605f6b9241621f6eb7b7bf18c75d94d15b
   languageName: node
   linkType: hard
 
