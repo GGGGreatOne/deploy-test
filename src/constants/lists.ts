@@ -1,6 +1,6 @@
 // used to mark unsupported tokens, these are hosted lists of unsupported tokens
 
-const COMPOUND_LIST = 'https://raw.githubusercontent.com/compound-finance/token-list/master/compound.tokenlist.json'
+// const COMPOUND_LIST = 'https://raw.githubusercontent.com/compound-finance/token-list/master/compound.tokenlist.json'
 const UMA_LIST = 'https://umaproject.org/uma.tokenlist.json'
 const AAVE_LIST = 'tokenlist.aave.eth'
 const SYNTHETIX_LIST = 'synths.snx.eth'
@@ -19,7 +19,7 @@ export const UNSUPPORTED_LIST_URLS: string[] = [BA_LIST]
 
 // lower index == higher priority for token import
 export const DEFAULT_LIST_OF_LISTS: string[] = [
-  COMPOUND_LIST,
+  // COMPOUND_LIST,
   AAVE_LIST,
   SYNTHETIX_LIST,
   UMA_LIST,

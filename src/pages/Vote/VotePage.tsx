@@ -188,9 +188,9 @@ export default function VotePage({
           <RowBetween>
             <TYPE.main>
               {endDate && endDate < now
-                ? 'Voting ended ' + (endDate && endDate.toLocaleString(DateTime.DATETIME_FULL))
+                ? 'Voting ended ' + (endDate && endDate.toLocaleString(DateTime.DATETIME_FULL as any))
                 : proposalData
-                ? 'Voting ends approximately ' + (endDate && endDate.toLocaleString(DateTime.DATETIME_FULL))
+                ? 'Voting ends approximately ' + (endDate && endDate.toLocaleString(DateTime.DATETIME_FULL as any))
                 : ''}
             </TYPE.main>
           </RowBetween>

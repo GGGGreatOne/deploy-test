@@ -20,7 +20,8 @@ import { useUserSlippageTolerance } from '../user/hooks'
 import { computeSlippageAdjustedAmounts } from '../../utils/prices'
 
 export function useSwapState(): AppState['swap'] {
-  return useSelector<AppState, AppState['swap']>(state => state.swap)
+  const res = useSelector<AppState, AppState['swap']>(state => state.swap)
+  return res
 }
 
 export function useSwapActionHandlers(): {
@@ -154,7 +155,6 @@ export function useDerivedSwapInfo(): {
     [Field.INPUT]: inputCurrency ?? undefined,
     [Field.OUTPUT]: outputCurrency ?? undefined
   }
-
   // get link to trade on v1, if a better rate exists
   const v1Trade = useV1Trade(isExactIn, currencies[Field.INPUT], currencies[Field.OUTPUT], parsedAmount)
 
@@ -224,7 +224,8 @@ function parseCurrencyFromURLParameter(urlParam: any): string {
     if (urlParam.toUpperCase() === 'ETH') return 'ETH'
     if (valid === false) return 'ETH'
   }
-  return 'ETH' ?? ''
+  // default return WETH
+  return '0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14'
 }
 
 function parseTokenAmountURLParameter(urlParam: any): string {
@@ -248,7 +249,7 @@ function validatedRecipient(recipient: any): string | null {
 
 export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
   let inputCurrency = parseCurrencyFromURLParameter(parsedQs.inputCurrency)
-  let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency)
+  let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency ?? '0x5816A5F7F0c934189659Aa5d7aB804313478533F')
   if (inputCurrency === outputCurrency) {
     if (typeof parsedQs.outputCurrency === 'string') {
       inputCurrency = ''
@@ -286,7 +287,6 @@ export function useDefaultsFromURLSearch():
   useEffect(() => {
     if (!chainId) return
     const parsed = queryParametersToSwapState(parsedQs)
-
     dispatch(
       replaceSwapState({
         typedValue: parsed.typedValue,
