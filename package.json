@@ -97,7 +97,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start:service-worker": "yarn build && yarn serve -s build",
-    "build": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "integration-test": "start-server-and-test 'serve build -l 3000' http://localhost:3000 'cypress run'"
