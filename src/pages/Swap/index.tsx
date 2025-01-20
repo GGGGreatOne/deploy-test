@@ -1,4 +1,4 @@
-import { CurrencyAmount, JSBI, Pair, Token, Trade } from '@uniswap/sdk'
+import { ChainId, CurrencyAmount, JSBI, Pair, Token, Trade } from '@uniswap/sdk'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { ArrowDown } from 'react-feather'
 import ReactGA from 'react-ga'
@@ -87,7 +87,7 @@ export default function Swap({ history }: RouteComponentProps) {
       return !Boolean(token.address in defaultTokens)
     })
 
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const theme = useContext(ThemeContext)
 
   // toggle wallet when disconnected
@@ -154,13 +154,15 @@ export default function Swap({ history }: RouteComponentProps) {
 
   const handleTypeInput = useCallback(
     (value: string) => {
-      onUserInput(Field.INPUT, value)
+      // TODO: fix this
+      if (chainId === ChainId.SEPOLIA) onUserInput(Field.INPUT, value)
     },
     [onUserInput]
   )
   const handleTypeOutput = useCallback(
     (value: string) => {
-      onUserInput(Field.OUTPUT, value)
+      // TODO: fix this
+      if (chainId === ChainId.SEPOLIA) onUserInput(Field.OUTPUT, value)
     },
     [onUserInput]
   )
