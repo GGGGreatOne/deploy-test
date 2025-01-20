@@ -34,15 +34,25 @@ const disabledFeatures = [
   // 'left_toolbar'
 ]
 
-export const TradingViewChart = ({tokenA, tokenB, pairAddress} : { tokenA: Currency | undefined, tokenB: Currency | undefined,pairAddress: string | undefined }) => {
-
+export const TradingViewChart = ({
+  tokenA,
+  tokenB,
+  pairAddress
+}: {
+  tokenA: Currency | undefined
+  tokenB: Currency | undefined
+  pairAddress: string | undefined
+}) => {
   const darkMode = useIsDarkMode()
   const chartContainerRef = useRef<HTMLDivElement>({} as HTMLDivElement)
-  const { datafeed } = useDatafeed({ pairSymbol: tokenA &&  tokenB ? tokenA.symbol + '/' + tokenB.symbol : 'Loading', pairAddress: pairAddress })
+  const { datafeed } = useDatafeed({
+    pairSymbol: tokenA && tokenB ? tokenA.symbol + '/' + tokenB.symbol : 'Loading',
+    pairAddress: pairAddress
+  })
 
   const defaultProps = useMemo(() => {
     return {
-      symbol: tokenA &&  tokenB ? tokenA.symbol + '/' + tokenB.symbol : 'Loading',
+      symbol: tokenA && tokenB ? tokenA.symbol + '/' + tokenB.symbol : 'Loading',
       interval: '1',
       datafeedUrl: 'https://demo_feed.tradingview.com',
       libraryPath: '/charting_library/',

@@ -4,7 +4,6 @@ import { Token } from '@uniswap/sdk'
 
 export function filterTokens(tokens: Token[], search: string): Token[] {
   if (search.length === 0) return tokens
-
   const searchingAddress = isAddress(search)
 
   if (searchingAddress) {

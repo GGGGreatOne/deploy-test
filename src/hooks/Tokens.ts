@@ -1,6 +1,6 @@
 import { TokenAddressMap, useDefaultTokenList, useUnsupportedTokenList } from './../state/lists/hooks'
 import { parseBytes32String } from '@ethersproject/strings'
-import { Currency, ETHER, Token, currencyEquals } from '@uniswap/sdk'
+import { ChainId, Currency, currencyEquals, ETHER, Token } from '@uniswap/sdk'
 import { useMemo } from 'react'
 import { useCombinedActiveList, useCombinedInactiveList } from '../state/lists/hooks'
 import { NEVER_RELOAD, useSingleCallResult } from '../state/multicall/hooks'
@@ -14,8 +14,13 @@ import { arrayify } from 'ethers/lib/utils'
 
 // reduce token map into standard address <-> Token mapping, optionally include user added tokens
 function useTokensFromMap(tokenMap: TokenAddressMap, includeUserAdded: boolean): { [address: string]: Token } {
-  const { chainId } = useActiveWeb3React()
+  const { chainId: activeChainId } = useActiveWeb3React()
   const userAddedTokens = useUserAddedTokens()
+
+  // TODO: fix this when use mainnet
+  const chainId = useMemo(() => {
+    return ChainId.SEPOLIA
+  }, [activeChainId])
 
   return useMemo(() => {
     if (!chainId) return {}

@@ -1,6 +1,7 @@
 import { useMemo, useRef } from 'react'
 import {useActiveWeb3React} from "../../../hooks";
 import {Bar} from "../charting_library";
+import { ChainId } from '@uniswap/sdk'
 export const SUPPORTED_RESOLUTIONS = ['1', '5', '15', '30', '240', 'D', 'W', 'M']
 
 // export enum KLineInterval {
@@ -53,12 +54,24 @@ type KlineData = {
   ts: number
 }
 
-export const useDatafeed = ({ pairSymbol, pairAddress, decimals = 8 }: { pairSymbol: string; pairAddress: string | undefined;decimals?: number }) => {
-  const { chainId } = useActiveWeb3React()
+export const useDatafeed = ({
+  pairSymbol,
+  pairAddress,
+  decimals = 8
+}: {
+  pairSymbol: string
+  pairAddress: string | undefined
+  decimals?: number
+}) => {
+  const { chainId: activeChainId } = useActiveWeb3React()
   const wssRef = useRef<WebSocket | null>(null)
   const intervalRef = useRef<string>('')
   const resetCacheRef = useRef<() => void | undefined>()
   const shouldRefetchBars = useRef<boolean>(false)
+  // TODO: fix this
+  const chainId = useMemo(() => {
+    return ChainId.SEPOLIA
+  }, [activeChainId])
   // const heartbeatRef = useRef(0)
   return useMemo(() => {
     return {
@@ -103,7 +116,9 @@ export const useDatafeed = ({ pairSymbol, pairAddress, decimals = 8 }: { pairSym
               onError('Invalid ticker!')
               return
             }
-            const klineReq = await fetch(`https://shhsjabh.h76yyrop.online/api/klines/v1?chainId=${chainId}&pair=${pairAddress}&interval=1m&limit=1000`)
+            const klineReq = await fetch(
+              `https://shhsjabh.h76yyrop.online/api/klines/v1?chainId=${chainId}&pair=${pairAddress}&interval=1m&limit=1000`
+            )
             const klineDetails = await klineReq.json()
             console.log('klineReq', klineDetails)
 
