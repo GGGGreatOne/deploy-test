@@ -5,6 +5,7 @@ import {useDatafeed} from "./hooks/useDatafeed";
 import { widget } from "./charting_library";
 import {useIsDarkMode} from "../../state/user/hooks";
 import {Currency} from "@uniswap/sdk";
+import { isMobile } from 'react-device-detect';
 
 
 function getLanguageFromURL() {
@@ -106,7 +107,7 @@ export const TradingViewChart = ({tokenA, tokenB, pairAddress} : { tokenA: Curre
     <Box
       ref={chartContainerRef}
       sx={{
-        height: { xs: '400px', md: 542 },
+        height: isMobile ? 400 : 542,
         width: '100%',
         borderRadius: 16,
         overflow: 'hidden'

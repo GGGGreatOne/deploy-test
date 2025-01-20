@@ -1,9 +1,9 @@
-import {CurrencyAmount, JSBI, Pair, Token, Trade} from '@uniswap/sdk'
+import { CurrencyAmount, JSBI, Pair, Token, Trade } from '@uniswap/sdk'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { ArrowDown } from 'react-feather'
 import ReactGA from 'react-ga'
 import { Text } from 'rebass'
-import { ThemeContext } from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import AddressInputPanel from '../../components/AddressInputPanel'
 import { ButtonError, ButtonLight, ButtonPrimary, ButtonConfirmed } from '../../components/Button'
 import Card, { GreyCard } from '../../components/Card'
@@ -42,15 +42,25 @@ import { useExpertModeManager, useUserSlippageTolerance, useUserSingleHopOnly } 
 import { LinkStyledButton, TYPE } from '../../theme'
 import { maxAmountSpend } from '../../utils/maxAmountSpend'
 import { computeTradePriceBreakdown, warningSeverity } from '../../utils/prices'
-import AppBody from '../AppBody'
 import { ClickableText } from '../Pool/styleds'
 import Loader from '../../components/Loader'
 import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
 import { isTradeBetter } from 'utils/trades'
 import { RouteComponentProps } from 'react-router-dom'
-import {TradingViewChart} from "../../components/TradingView/TradingViewChart";
-import {Box} from "rebass/styled-components";
+import { TradingViewChart } from '../../components/TradingView/TradingViewChart'
+import { Box } from 'rebass/styled-components'
+import { isMobile } from 'react-device-detect'
+
+export const SwapWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  background: ${({ theme }) => theme.bg1};
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
+    0px 24px 32px rgba(0, 0, 0, 0.01);
+  border-radius: 30px;
+  /* padding: 1rem; */
+`
 
 export default function Swap({ history }: RouteComponentProps) {
   const loadedUrlParams = useDefaultsFromURLSearch()
@@ -307,14 +317,25 @@ export default function Swap({ history }: RouteComponentProps) {
   const handleOutputSelect = useCallback(outputCurrency => onCurrencySelection(Field.OUTPUT, outputCurrency), [
     onCurrencySelection
   ])
-
   const swapIsUnsupported = useIsTransactionUnsupported(currencies?.INPUT, currencies?.OUTPUT)
 
   return (
     <>
-      <Box sx={{ display: 'flex', width: '100%', padding: '0 32px', gap: 32 }}>
-        <TradingViewChart  tokenA={currencies[Field.INPUT]} tokenB={currencies[Field.OUTPUT]} pairAddress={pairAddress}/>
-        <Box sx={{ width: 500 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          width: '100%',
+          padding: isMobile ? '0 16px' : '0 32px',
+          gap: 32
+        }}
+      >
+        <TradingViewChart
+          tokenA={currencies[Field.INPUT]}
+          tokenB={currencies[Field.OUTPUT]}
+          pairAddress={pairAddress}
+        />
+        <Box sx={{ width: isMobile ? 'auto' : 500 }}>
           <TokenWarningModal
             isOpen={importTokensNotInDefault.length > 0 && !dismissTokenWarning}
             tokens={importTokensNotInDefault}
@@ -322,7 +343,7 @@ export default function Swap({ history }: RouteComponentProps) {
             onDismiss={handleDismissTokenWarning}
           />
           <SwapPoolTabs active={'swap'} />
-          <AppBody>
+          <SwapWrapper>
             <SwapHeader />
             <Wrapper id="swap-page">
               <ConfirmSwapModal
@@ -511,8 +532,8 @@ export default function Swap({ history }: RouteComponentProps) {
                       {swapInputError
                         ? swapInputError
                         : priceImpactSeverity > 3 && !isExpertMode
-                          ? `Price Impact Too High`
-                          : `Swap${priceImpactSeverity > 2 ? ' Anyway' : ''}`}
+                        ? `Price Impact Too High`
+                        : `Swap${priceImpactSeverity > 2 ? ' Anyway' : ''}`}
                     </Text>
                   </ButtonError>
                 )}
@@ -529,7 +550,7 @@ export default function Swap({ history }: RouteComponentProps) {
                 ) : null}
               </BottomGrouping>
             </Wrapper>
-          </AppBody>
+          </SwapWrapper>
           {!swapIsUnsupported ? (
             <AdvancedSwapDetailsDropdown trade={trade} />
           ) : (
