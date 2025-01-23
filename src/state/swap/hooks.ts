@@ -225,7 +225,7 @@ function parseCurrencyFromURLParameter(urlParam: any): string {
     if (valid === false) return 'ETH'
   }
   // default return WETH
-  return '0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14'
+  return 'ETH'
 }
 
 function parseTokenAmountURLParameter(urlParam: any): string {
