@@ -128,7 +128,11 @@ export default function Swap({ history }: RouteComponentProps) {
 
   const pairAddress = useMemo(() => {
     if (currencies[Field.OUTPUT] && currencies[Field.INPUT]) {
-      return Pair.getAddress(currencies[Field.INPUT] as Token, currencies[Field.OUTPUT] as Token)
+      try {
+        return Pair.getAddress(currencies[Field.INPUT] as Token, currencies[Field.OUTPUT] as Token)
+      } catch (e) {
+        return ''
+      }
     } else return ''
   }, [currencies])
   console.log('pairAddress', pairAddress)
