@@ -185,12 +185,13 @@ export const useDatafeed = ({
               console.log('return')
               return
             }
+            const target = resolution === '1' ? 0 : 1
             const bar = {
-              time: Number(data[0].ts * 1000),
-              open: Number(data[0].open),
-              high: Number(data[0].high),
-              low: Number(data[0].low),
-              close: Number(data[0].close)
+              time: Number(data[target].ts * 1000),
+              open: Number(data[target].open),
+              high: Number(data[target].high),
+              low: Number(data[target].low),
+              close: Number(data[target].close)
             }
             onRealtimeCallback(bar)
           }
