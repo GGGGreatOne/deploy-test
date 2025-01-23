@@ -1,4 +1,4 @@
-import { ChainId, CurrencyAmount, JSBI, Pair, Token, Trade } from '@uniswap/sdk'
+import { ChainId, CurrencyAmount, JSBI, Pair, Token, Trade, WETH } from '@uniswap/sdk'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { ArrowDown } from 'react-feather'
 import ReactGA from 'react-ga'
@@ -129,12 +129,16 @@ export default function Swap({ history }: RouteComponentProps) {
   const pairAddress = useMemo(() => {
     if (currencies[Field.OUTPUT] && currencies[Field.INPUT]) {
       try {
-        return Pair.getAddress(currencies[Field.INPUT] as Token, currencies[Field.OUTPUT] as Token)
+        if (currencies[Field.INPUT]?.symbol === 'ETH' && chainId) {
+          return Pair.getAddress(WETH[chainId] as Token, currencies[Field.OUTPUT] as Token)
+        } else if (currencies[Field.OUTPUT]?.symbol === 'ETH' && chainId) {
+          return Pair.getAddress(currencies[Field.INPUT] as Token, WETH[chainId] as Token)
+        } else return Pair.getAddress(currencies[Field.INPUT] as Token, currencies[Field.OUTPUT] as Token)
       } catch (e) {
         return ''
       }
     } else return ''
-  }, [currencies])
+  }, [currencies, chainId])
   console.log('pairAddress', pairAddress)
 
   const defaultTrade = showWrap ? undefined : tradesByVersion[DEFAULT_VERSION]
