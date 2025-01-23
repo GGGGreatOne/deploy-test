@@ -1,8 +1,8 @@
 import { useMemo, useRef } from 'react'
 // import {useActiveWeb3React} from "../../../hooks";
-import {Bar} from "../charting_library";
+import { Bar } from "../charting_library";
 import { ChainId } from '@uniswap/sdk'
-export const SUPPORTED_RESOLUTIONS = ['1', '5', '15', '30', '240', 'D', 'W', 'M']
+export const SUPPORTED_RESOLUTIONS = ['1', '5']
 
 // export enum KLineInterval {
 //   '1m' = '1m',
@@ -116,8 +116,11 @@ export const useDatafeed = ({
               onError('Invalid ticker!')
               return
             }
+            console.log('resolution', resolution)
             const klineReq = await fetch(
-              `https://shhsjabh.h76yyrop.online/api/klines/v1?chainId=${chainId}&pair=${pairAddress}&interval=1m&limit=1000`
+              `https://shhsjabh.h76yyrop.online/api/klines/v1?chainId=${chainId}&pair=${pairAddress}&interval=${
+                resolution === '1' ? '1m' : '5m'
+              }&limit=1000`
             )
             const klineDetails = await klineReq.json()
             console.log('klineReq', klineDetails)
