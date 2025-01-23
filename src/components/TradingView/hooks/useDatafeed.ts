@@ -1,5 +1,5 @@
 import { useMemo, useRef } from 'react'
-import {useActiveWeb3React} from "../../../hooks";
+// import {useActiveWeb3React} from "../../../hooks";
 import {Bar} from "../charting_library";
 import { ChainId } from '@uniswap/sdk'
 export const SUPPORTED_RESOLUTIONS = ['1', '5', '15', '30', '240', 'D', 'W', 'M']
@@ -63,7 +63,7 @@ export const useDatafeed = ({
   pairAddress: string | undefined
   decimals?: number
 }) => {
-  const { chainId: activeChainId } = useActiveWeb3React()
+  // const { chainId } = useActiveWeb3React()
   const wssRef = useRef<WebSocket | null>(null)
   const intervalRef = useRef<string>('')
   const resetCacheRef = useRef<() => void | undefined>()
@@ -71,7 +71,7 @@ export const useDatafeed = ({
   // TODO: fix this
   const chainId = useMemo(() => {
     return ChainId.SEPOLIA
-  }, [activeChainId])
+  }, [])
   // const heartbeatRef = useRef(0)
   return useMemo(() => {
     return {

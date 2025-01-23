@@ -165,14 +165,14 @@ export default function Swap({ history }: RouteComponentProps) {
       // TODO: fix this
       if (chainId === ChainId.SEPOLIA) onUserInput(Field.INPUT, value)
     },
-    [onUserInput]
+    [onUserInput, chainId]
   )
   const handleTypeOutput = useCallback(
     (value: string) => {
       // TODO: fix this
       if (chainId === ChainId.SEPOLIA) onUserInput(Field.OUTPUT, value)
     },
-    [onUserInput]
+    [onUserInput, chainId]
   )
 
   // reset if they close warning without tokens in params
