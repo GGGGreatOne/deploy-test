@@ -139,7 +139,6 @@ export default function Swap({ history }: RouteComponentProps) {
       }
     } else return ''
   }, [currencies, chainId])
-  console.log('pairAddress', pairAddress)
 
   const defaultTrade = showWrap ? undefined : tradesByVersion[DEFAULT_VERSION]
 
