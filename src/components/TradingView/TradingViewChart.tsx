@@ -93,8 +93,9 @@ export const TradingViewChart = ({
       // },
       favorites: {
         chartTypes: ['Area', 'Candles', 'Bars'],
-        intervals: ['1']
-      }
+        intervals: ['1', '5', '15', '30', '60', '240', 'D', 'W']
+      },
+      resolution: ['1', '5', '15', '30', 'H', '4H', 'D', 'W']
     }
     const tvWidget = new widget(widgetOptions as any)
 
