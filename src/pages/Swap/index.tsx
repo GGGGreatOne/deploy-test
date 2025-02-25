@@ -1,4 +1,4 @@
-import { ChainId, CurrencyAmount, JSBI, Pair, Token, Trade, WETH } from '@uniswap/sdk'
+import { ChainId, CurrencyAmount, FACTORY_ADDRESS, JSBI, Pair, Token, Trade, WETH } from '@uniswap/sdk'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { ArrowDown } from 'react-feather'
 import ReactGA from 'react-ga'
@@ -21,7 +21,7 @@ import TokenWarningModal from '../../components/TokenWarningModal'
 import ProgressSteps from '../../components/ProgressSteps'
 import SwapHeader from '../../components/swap/SwapHeader'
 
-import { INITIAL_ALLOWED_SLIPPAGE } from '../../constants'
+import { INITIAL_ALLOWED_SLIPPAGE, ROUTER_ADDRESS } from '../../constants'
 import { getTradeVersion } from '../../data/V1'
 import { useActiveWeb3React } from '../../hooks'
 import { useCurrency, useAllTokens } from '../../hooks/Tokens'
@@ -139,7 +139,7 @@ export default function Swap({ history }: RouteComponentProps) {
       }
     } else return ''
   }, [currencies, chainId])
-  console.log('pairAddress!!!', pairAddress)
+  console.log('ROUTER_ADDRESS!!!', ROUTER_ADDRESS, FACTORY_ADDRESS)
 
   const defaultTrade = showWrap ? undefined : tradesByVersion[DEFAULT_VERSION]
 
