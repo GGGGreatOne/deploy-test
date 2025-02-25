@@ -2897,7 +2897,7 @@
 
 "@uniswap/sdk@GGGGreatOne/uniswap-sdk.git":
   version "3.0.3"
-  resolved "https://codeload.github.com/GGGGreatOne/uniswap-sdk/tar.gz/dc4105c56b4fb3800e04ea3a184c0de13b1018c5"
+  resolved "https://codeload.github.com/GGGGreatOne/uniswap-sdk/tar.gz/4a2fb2caefa58808dc2ab2295ccedee5d8f16800"
   dependencies:
     "@uniswap/v2-core" "^1.0.0"
     big.js "^5.2.2"
